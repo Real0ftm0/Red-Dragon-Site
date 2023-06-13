@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Navbar -->
+<div class="container-xxl position-relative p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+        <a href="{% url 'website:index' %}" class="navbar-brand p-0">
+            <h1 style="color: whitesmoke;"><i class="text-primary m-0">紅龍 </i>اژدهای سرخ</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto py-0 pe-4">
+                <a href="{% url 'website:index' %}" class="nav-item nav-link">صفحه اصلی</a>
+                <a href="{% url 'website:about' %}" class="nav-item nav-link">درباره ما</a>
+                <a href="{% url 'website:menu' %}" class="nav-item nav-link ">منوی غذا </a>
+                {% if request.user.is_authenticated %}
+
+                <a href="{% url 'account_logout' %}" class="nav-item nav-link">خروج از حساب کاربری</a>
+                <a href="{% url 'profile' %}" class="nav-item nav-link">پروفایل کاربری</a>
+
+                {% else %}
+                <a href="{% url 'website:login' %}"  class="nav-item nav-link active">ورود / ثبت نام</a>
+
+                {% endif %}
+                <a href="{% url 'website:order_details2' %}"  class="nav-item nav-link">جزئیات خرید</a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">فاکتور خرید</h1>
+    </div>
+</div>
+
+{% if is_order %}
+    <h2 style="margin-right: 5%;"> از خرید شما متشکریم.</h2>
+    <h2 style="margin-right: 5%;"> فاکتور خرید </h2>
+    <h2 style="margin-right: 5%;">  {{ request.user.first_name }} {{ request.user.last_name }} :نام و نام خانوادگی</h2>
+    <p style="margin-right: 5%;"> ایمیل: {{ request.user.email }}</p>
+    <h4 style="margin-right: 5%;"> فاکتور</h4 >
+    <p style="margin-right: 5%;"> تعداد محصولات: {{ order_count|floatformat:"0" }} عدد</p>
+    <p style="margin-right: 5%;">مجموع کل: {{ order_price|floatformat:"0" }} تومان</p>
+    <p style="margin-right: 5%;">نشانی: {{ request.user.home_address }}</p>
+    <p style="margin-right: 5%;"> تخمین زمان آماده‌سازی: 20 دقیقه </p>
+    <p style="margin-right: 5%;"> شماره خرید: </p>
+{% else %}
+    <h4 style="margin-right: 38%;"> شما هنوز خریدی را ثبت نکرده اید</h4>
+{% endif %}
+
+{% endblock %}

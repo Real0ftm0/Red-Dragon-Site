@@ -1,0 +1,65 @@
+{% load static %}
+{% block content %}
+<!-- Comments -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+            <h5 class="  text-center text-primary fw-normal">با ما در ارتباط باشید</h5>
+            <h1 class="mb-5">پذیرای نظرات و انتقادات شما هستیم</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                <iframe class="position-relative rounded w-100 h-100"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3445.3837238748342!2d57.05020142469222!3d30.283135874804312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f0219cfc627c56f%3A0x69e533ed0cc487a0!2z2LHYs9iq2YjYsdin2YYg2obbjNmG24wg2KfamNiv2YfYp9uMINiz2LHYrg!5e0!3m2!1sfa!2s!4v1683825340389!5m2!1sfa!2s"
+                    frameborder="0" style="min-height: 350px; border:0;" allowfullscreen="" aria-hidden="false"
+                    tabindex="0"></iframe>
+            </div>
+
+
+
+            <div class="col-md-6">
+                <div class="wow fadeInUp" data-wow-delay="0.2s">
+                    <form action="{% url 'website:contact' %}" method="post">
+                        
+                        <div class="row g-3">
+                            {% csrf_token %}
+
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input name="name" type="text" class="form-control" id="comment-name"
+                                        placeholder="comment-name">
+                                    <label for="comment-name">نام</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input name="family_name" type="text" class="form-control" id="comment-last-name"
+                                        placeholder="comment-last-name">
+                                    <label for="comment-last-name">نام خانوادگی</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input name="email" type="email" class="form-control" id="comment-email"
+                                        placeholder="comment-email">
+                                    <label for="comment-email">آدرس ایمیل</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea name="message" class="form-control" placeholder="Leave a message here"
+                                        id="message" style="height: 150px"></textarea>
+                                    <label for="message">لطفا دیدگاه خود را وارد کنید</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3" type="submit">ثبت دیدگاه</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown"></h1>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.1s">
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane fade show p-0 active">
+                    <div class="row g-4">
+                        <!--    فرم  پروفایل کاربری      -->
+                        <div class="container-xxl py-5">
+                            <div class="container">
+                                <div class="row g-4 wow fadeInUp" data-wow-delay="0.2s">
+                                    <div class="container">
+                                        <form method="post" action="" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="row gutters">
+                                                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <div class="account-settings">
+                                                                <div class="user-profile">
+                                                                    <br>
+                                                                    <h6 class="user-email text text-center">{{ request.user.username }} عزیز</h6>
+                                                                </div>
+                                                                <div class="about">
+                                                                    <h5>خوش آمدید!</h5>
+                                                                    {{ form.about_me|add_class:"form-control" }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <div class="row gutters">
+                                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                                    <h6 class="mb-2 title-form" style="font-size: 15px">اطلاعات شخصی</h6>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="fullName">نام</label>
+                                                                        {{ form.first_name|add_class:"form-control" }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="fullName">نام خانوادگی</label>
+                                                                        {{ form.last_name|add_class:"form-control" }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="fullName">نام کاربری</label>
+                                                                        {{ form.username|add_class:"form-control"|attr:"readonly:readonly" }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="eMail">ایمیل</label>
+                                                                        {{ form.email|add_class:"form-control"|attr:"readonly:readonly" }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                                    <div class="form-group">
+                                                                        <label for="phone">آدرس منزل</label>
+                                                                        {{ form.home_address|add_class:"form-control" }}
+                                                                    </div><br>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row gutters">
+                                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                                                    <div class="text-right">
+                            
+                                                                        <button type="button" id="submit" name="submit"
+                                                                                class="btn btn-secondary"
+                                                                                style="border-radius: 2.5px"><a href="{% url 'website:index' %}"
+                                                                                                                style="color: white;text-decoration: None">لغو</a>
+                                                                        </button>
+                                                                        <button type="submit" id="submit" name="submit" class="btn btn-primary"
+                                                                                style="border-radius: 2.5px">
+                                                                            بروزرسانی
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            </br>
+                        </div>
+                        <!--     پایان فرم پروفایل کاربری        -->
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+</div>
+{% endblock %}

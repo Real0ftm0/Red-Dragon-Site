@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container my-5 py-5">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 text-center text-lg-start">
+                <h1 class="display-3 text-white animated slideInLeft">اولین مجموعه<br>غذاهای چینی در کرمان
+                </h1>
+                <p class="text-white animated slideInLeft mb-4 pb-2">طبخ انواع غذاهای چینی با ذائقه ایرانی
+                </p>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'website:about' %}" clss="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">به مجموعه اژدهای سرخ خوش آمدید</a>
+                {% else %}
+                    <a href="{% url 'website:login' %}" class="btn btn-primary py-sm-3 px-sm-5 me-3 animated slideInLeft">ورود / ثبت نام</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 text-center text-lg-end overflow-hidden">
+                <img class="img-fluid" src="{% static 'img/111.png' %}" alt="Loading...">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Navbar -->
+
+{% include 'about_content.html' %}
+
+
+
+<!-- Menu  -->
+{% include 'menu_content.html' %}
+<!-- Menu End -->
+
+
+{% include 'contact.html' %}
+
+
+{% endblock %}

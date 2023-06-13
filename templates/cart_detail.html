@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .item_container {
+        position: relative;
+        padding: 0.5rem;
+        -webkit-box-shadow: 0 2px 3px 0 rgba(125,125,125,0.5);
+        box-shadow: 0 2px 3px 0 rgba(125,125,125,0.5);
+        border: none;
+        margin-bottom: 1rem;
+        background: #fff;
+        border-radius: 4px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .item_CardContainer {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+        position: relative;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        direction: ltr;
+    }
+    .item_imageContainer {
+        width: 105px;
+        height: 105px;
+        white-space: nowrap;
+        border-radius: 5px;
+    }
+    .item_image {
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 102%;
+        border: 1px solid #d8d8d8;
+        position: relative;
+        border-radius: 5px;
+    }
+    .item_text {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-flex: 8;
+        -ms-flex: 8;
+        flex: 8;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        padding-right: 0.5rem;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        text-align: right;
+        padding-top: 0.5rem;
+        direction: rtl;
+        padding-left: 0.6em;
+    }
+    .item_text h4 {
+        font-weight: 700;
+        font-size: 1.5rem;
+        direction: rtl;
+        color: black;
+    }
+    .item_text p {
+        font-size: 1.1rem;
+        direction: rtl;
+        margin-top: 0.5rem;
+    }
+    .item_price {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+</style>
+
+<div class="container-xxl py-5 bg-dark hero-header mb-5">
+    <div class="container text-center my-5 pt-5 pb-4">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">سبد خرید</h1>
+    </div>
+</div>
+
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="tab-class text-center wow ">
+            <div class="tab-content">
+                <div id="tab-1" class="tab-pane p-0 active">
+                    <div class="row g-4">
+                        <!-- Menu Start -->
+                            <div class="row" class="store-items" id="store-items">
+                                {% for item in cart %}
+                                <div class="item_container animated slideInRight">
+                                    <div class="item_CardContainer">
+                                        <div class="item_imageContainer">
+                                            <div class="item_image" style='background-image: url("{{ item.product.image.url }}");'></div>
+                                        </div>
+                                        <div class="item_text">
+                                            <div>
+                                                <h4>{{ item.product.name_farsi }}</h4>
+                                                <p>{{ item.product.description }}</p>
+                                                
+                                            </div>
+                                            <div class="item_price">
+                                                <span class="price">{{ item.price|floatformat:"0" }}&nbsp;تومان</span>
+                                                <a href="{% url 'cart2:cart_remove' item.product.id %}"><i class="fas fa-trash"></i>حذف</a>
+                                            </div>
+                                            <div class="item_price">
+                                                <span class="price">تعداد محصول: {{ item.product_count }} عدد</span>
+                                            </div>
+                                            <div class="item_price">
+                                                <span class="price">مجموع: {{ item.total_price }} تومان</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <h5 class="mb-5">
+                                    غذا یا نوشیدنی در سبد خرید شما وجود ندارد.   
+                                </h5>
+                            {% endfor %}
+                            
+                            <h4>مجموع کل: {{ cart.get_total_price|floatformat:"0" }} تومان</h4>
+
+                            {% if cart.get_total_price > 0 %}
+                                <div class="cart-buttons-container mt-3 d-flex justify-content-between">
+                                    <a href="{% url 'cart2:cart_clear' %}" id="clear-cart"
+                                        class="btn btn-outline-secondary btn-black text-uppercase">پاک کردن همه</a>
+                                        <form action="{% url 'website:order_details2' %}" method="post">
+                                            {% csrf_token %}
+                                        <input type="submit" value="ثبت سفارش" class="btn btn-outline-secondary text-uppercase btn-pink">
+                                        </form>
+                                </div>
+                            {% endif %}
+                
+                        </div>
+                        <!-- Menu End -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

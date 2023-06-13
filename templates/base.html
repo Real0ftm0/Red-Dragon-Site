@@ -1,0 +1,198 @@
+{% load static %}
+{% load account %}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="utf-8">
+    <title>درباره ما</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static '/img/tab-logo.png' %}" rel="icon">
+
+    <!--  Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries  -->
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css' %}" rel="stylesheet" />
+
+    <!--  Bootstrap  -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- css -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-xxl bg-white p-0">
+        <!-- Spinner  -->
+        <div id="spinner"
+            class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <!-- Spinner  -->
+
+        <!-- Navbar -->
+        <div class="container-xxl position-relative p-0">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+                <a href="{% url 'website:index' %}" class="navbar-brand p-0">
+                    <h1 style="color: whitesmoke;"><i class="text-primary m-0">紅龍 </i>اژدهای سرخ</h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="fa fa-bars"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto py-0 pe-4">
+                        <a href="{% url 'website:index' %}" class="nav-item nav-link active">صفحه اصلی</a>
+                        <a href="{% url 'website:about' %}" class="nav-item nav-link">درباره ما</a>
+                        <a href="{% url 'website:menu' %}" class="nav-item nav-link ">منوی غذا </a>
+                        {% if request.user.is_authenticated %}
+                        
+                        <a href="{% url 'account_logout' %}" class="nav-item nav-link">خروج از حساب کاربری</a>
+                        <a href="{% url 'profile' %}" class="nav-item nav-link">پروفایل کاربری</a>
+                        
+                        {% else %}
+                        <a href="{% url 'website:login' %}"  class="nav-item nav-link">ورود / ثبت نام</a>
+                        
+                        {% endif %}
+                        <a href="{% url 'website:order_details2' %}"  class="nav-item nav-link">جزئیات خرید</a>
+                    </div>
+                </div>
+                <!--cart-->
+                <div id="cart-info" class="icons cart-info">
+                    {% with total_items=cart|length %}
+
+                    <a href="{% url 'cart2:cart_detail' %}" class="btn btn-primary py-2 px-4">
+                        <p class="mb-0 text-capitalize">
+                            <div class="fas fa-shopping-cart" id="cart-btn"></div>
+                            <span id="item-count"> {{ total_items }} </span>
+                        </p>
+                    </a>
+                    {% endwith %}
+                </div>
+                <div id="cart" class="cart" dir="ltr">
+
+
+
+                    <!-- cart item -->
+
+                    {% with total_items=cart|length %}
+                    {% if total_items > 0 %}
+
+                    <div class="cart-total-container d-flex justify-content-around text-capitalize mt-5" dir="ltr">
+                        <h5>مجموع</h5>
+                        <h5 dir="lt"> <strong id="cart-total" class="font-weight-bold">
+                                {{ cart.get_total_price|floatformat:"0" }}
+
+                            </strong> تومان</h5>
+                    </div>
+                    <div class="cart-buttons-container mt-3 d-flex justify-content-between">
+                        <a href="{% url 'cart2:cart_clear' %}" id="clear-cart"
+                            class="btn btn-outline-secondary btn-black text-uppercase">پاک کردن همه</a>
+
+
+                            <!-- url 'website:to_bank -->
+                            <form action="" method="post">
+                                {% csrf_token %}
+                            <input type="submit" value="ثبت سفارش" class="btn btn-outline-secondary text-uppercase btn-pink">
+                            </form>
+                    </div>
+
+                    {% else %}
+                    <p> هنوز چیزی انتخاب نکرده‌اید</p>
+
+                    {% endif %}
+                    {% endwith %}
+            </nav>
+        </div>
+
+        <!-- Navbar -->
+
+        {% block content %}
+        {% endblock %}
+
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-3 col-md-6">
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">ارتباط با ما</h4>
+                        <p class="mb-2"><i class="fa fa-map-marker-alt me-3"> </i> کرمان، خیابان فیروزه، نبش کوچه5</p>
+                        <a href="tel:03432454513" class="mb-2" dir="ltr" style="color: #fff;"> 034 3245 4513 <i
+                                class="fa fa-phone-alt me-3"></i></a>
+                        <div class="d-flex pt-2">
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <h4 class="section-title ff-secondary text-start text-primary fw-normal mb-4">ساعت کاری</h4>
+                        <h5 class="text-light fw-normal">شنبه تا پنجشنبه</h5>
+                        <p>7 صبح تا 12 شب</p>
+
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="copyright">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            &copy; <a class="border-bottom" href="#">Red Dragon</a>, All Right Reserved.
+                            Designed By <a class="border-bottom"
+                                href="https://github.com/red-dragon-front/front.git">print("Hello World!")</a>
+                        </div>
+                        <div class="col-md-6 text-center text-md-end">
+                            <div class="footer-menu">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
