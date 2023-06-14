@@ -188,7 +188,7 @@ EMAIL_HOST = 'smtp.gmail.com' # Replace with your SMTP email host
 EMAIL_USE_TLS = True # Set to True if your email host requires TLS
 EMAIL_PORT = 587 # Replace with the port number for your email host
 EMAIL_HOST_USER = 'reddragonrestaurant2@gmail.com' # Replace with your SMTP email address
-EMAIL_HOST_PASSWORD = 'pcecpqxmhavkpjtt' # Replace with your SMTP email password
+EMAIL_HOST_PASSWORD = '' # Replace with your SMTP email password
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
